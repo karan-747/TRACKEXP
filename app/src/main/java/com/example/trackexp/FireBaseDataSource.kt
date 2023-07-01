@@ -120,7 +120,7 @@ class FireBaseDataSource {
             .addSnapshotListener { snapShot, e ->
 
                 e?.let{
-                    Log.d("FIREBASEDATASOURCE",e.message.toString())
+                    //Log.d("FIREBASEDATASOURCE",e.message.toString())
                     return@addSnapshotListener
                 }
                 snapShot?.let{
@@ -406,7 +406,7 @@ class FireBaseDataSource {
             updateCredentials()
             resultPair
         }catch (e:Exception){
-            Log.d("FIREBASEDATASOURCE",e.message.toString())
+           // Log.d("FIREBASEDATASOURCE",e.message.toString())
             val resultPair = Pair(false,e.message.toString())
             resultPair
         }
@@ -466,10 +466,11 @@ class FireBaseDataSource {
     suspend fun addTransactionRecord(transactionRecord: TransactionRecord):Boolean{
         return try {
             recordRef.add(transactionRecord).await()
-            Log.d ("DATASOURCE","ADDED SUCCESSFULLY")
+           // Log.d ("DATASOURCE","ADDED SUCCESSFULLY")
+            //log message was just for testing
             true
         }catch (e:Exception){
-            Log.d ("DATASOURCE",e.message.toString())
+           // Log.d ("DATASOURCE",e.message.toString())
             false
         }
     }
@@ -500,11 +501,11 @@ class FireBaseDataSource {
                 return true
             }
             catch (e:Exception){
-                Log.d("FIREBASEDATASOURCE",e.message.toString())
+                //Log.d("FIREBASEDATASOURCE",e.message.toString())
                 return false
             }
         }else{
-            Log.d("FIREBASEDATASOURCE","Record not found")
+           // Log.d("FIREBASEDATASOURCE","Record not found")
             return false
         }
 
@@ -535,7 +536,7 @@ class FireBaseDataSource {
                 return true
             }
             catch (e:Exception){
-                Log.d("FIREBASEDATASOURCE",e.message.toString())
+                //Log.d("FIREBASEDATASOURCE",e.message.toString())
                 return false
             }
         }
