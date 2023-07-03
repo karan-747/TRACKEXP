@@ -17,6 +17,8 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 class AnalysisItemRVAdapter:RecyclerView.Adapter<AnalysisItemRVAdapter.AnalysisVH>() {
     private var dataList  = ArrayList<ArrayList<PieEntry>>()
@@ -66,8 +68,16 @@ class AnalysisItemRVAdapter:RecyclerView.Adapter<AnalysisItemRVAdapter.AnalysisV
     inner class AnalysisVH(val binding: AnalysisItemBinding,private val showToast: ()->Unit) :RecyclerView.ViewHolder(binding.root){
 
         //income mode
+
+        private val calender =Calendar.getInstance()
+        private val monthFormat = SimpleDateFormat("LLLL")
+        val monthName = monthFormat.format(calender.time)
+        private val currentYear = calender.get(Calendar.YEAR)
+        val mCenterText = "$monthName, $currentYear"
         fun bind0(recordList :ArrayList<PieEntry>){
             binding.tvTitile.text = "Income vs Mode"
+
+
 
             var check= (recordList[0].value == 0f) && (recordList[1].value == 0f)
             if(check){
@@ -95,6 +105,9 @@ class AnalysisItemRVAdapter:RecyclerView.Adapter<AnalysisItemRVAdapter.AnalysisV
                 description.isEnabled = true
                 description.text = "Income-Mode Chart"
                 isRotationEnabled = true
+                centerText = mCenterText
+                setCenterTextColor(R.color.black)
+
                 transparentCircleRadius = 0f
                 holeRadius = 50f
                 setDrawEntryLabels(true)
@@ -153,6 +166,8 @@ class AnalysisItemRVAdapter:RecyclerView.Adapter<AnalysisItemRVAdapter.AnalysisV
                 isRotationEnabled = true
                 transparentCircleRadius = 0f
                 holeRadius = 50f
+                centerText = mCenterText
+                setCenterTextColor(R.color.black)
                 setDrawEntryLabels(true)
                 setNoDataText("No transactions record available")
                 setEntryLabelTextSize(10f)
@@ -212,6 +227,8 @@ class AnalysisItemRVAdapter:RecyclerView.Adapter<AnalysisItemRVAdapter.AnalysisV
                 isRotationEnabled = true
                 transparentCircleRadius = 0f
                 holeRadius = 50f
+                centerText = mCenterText
+                setCenterTextColor(R.color.black)
                 setNoDataText("No transactions record available")
                 setDrawEntryLabels(true)
                 setEntryLabelTextSize(10f)
@@ -270,6 +287,8 @@ class AnalysisItemRVAdapter:RecyclerView.Adapter<AnalysisItemRVAdapter.AnalysisV
                 isRotationEnabled = true
                 transparentCircleRadius = 0f
                 holeRadius = 50f
+                centerText = mCenterText
+                setCenterTextColor(R.color.black)
                 setNoDataText("No transactions record available")
                 setDrawEntryLabels(true)
                 setEntryLabelTextSize(10f)
