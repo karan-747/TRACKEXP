@@ -2,7 +2,7 @@
 
 ## Description
 
-* TRACKEXP is native app build tracking the personal finance. 
+* TRACKEXP is native app build for tracking the personal finance. 
 * With this app user can record the daily transactions of different categories and can get the monthly analysis of the transactions based on different categories.
 * TRACKEXP shows the monthly transaction analysis in donut chart.
 
