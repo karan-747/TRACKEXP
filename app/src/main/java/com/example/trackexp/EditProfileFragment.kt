@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.datastore.core.DataStore
 import androidx.fragment.app.DialogFragment
+import com.bumptech.glide.Glide
 import com.example.trackexp.databinding.FragmentEditProfileBinding
 import com.example.trackexp.databinding.FragmentEditTransactionBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -59,15 +60,15 @@ class EditProfileFragment : Fragment() {
             }
 
             if(user.photoUrl != null){
-                //binding.ivUserImage.setImageURI(user.photoUrl)
-                //val uri : Uri = user.photoUrl!!
-                //binding.ivUserImage.setImageURI(uri)
+                userImgUri = user.photoUrl
                 Log.d("FIREBASEUSERPHOTOURL" ,user.photoUrl.toString())
-                //binding.ivUserImage.setImageURI(user.photoUrl)
+                Glide.with(this).load(user.photoUrl)
+                    .error(R.drawable.img_user)
+                    .into(binding.ivUserImage)
+
             }
         }
-        //content://media/picker/0/com.android.providers.media.photopicker/media/1000027112
-        //content://media/picker/0/com.android.providers.media.photopicker/media/1000027113
+
 
 
         val pickMedia =registerForActivityResult(ActivityResultContracts.PickVisualMedia()){

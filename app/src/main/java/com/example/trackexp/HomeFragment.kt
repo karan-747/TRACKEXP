@@ -3,6 +3,7 @@ package com.example.trackexp
 import android.content.DialogInterface
 import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.trackexp.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
@@ -36,7 +38,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var  calender:Calendar
     private lateinit var  adapter: HomeRVAdapter
 
-
+    private val firebaseAuth =FirebaseAuth.getInstance()
 
 
 
@@ -132,6 +134,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        firebaseAuth.currentUser?.let { user->
+            if(user.photoUrl != null){
+                Log.d("FIREBASEUSERPHOTOURL" ,user.photoUrl.toString())
+                Glide.with(this).load(user.photoUrl)
+                    .error(R.drawable.img_user)
+                    .into(binding.imageView6)
+
+            }
+        }
     }
 
 
