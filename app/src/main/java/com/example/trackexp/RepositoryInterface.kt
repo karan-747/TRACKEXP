@@ -33,6 +33,8 @@ interface RepositoryInterface {
     suspend fun deleteTransactionRecord(oldRecord: TransactionRecord):Boolean
     suspend fun updateTransactionRecord (oldRecord: TransactionRecord, updateMap: Map<String, Any>):Boolean
 
+    fun checkLoginStatus( navigateToHome : ()->Unit ):Unit
+
 
 
 

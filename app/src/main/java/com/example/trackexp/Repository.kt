@@ -57,6 +57,8 @@ class Repository :RepositoryInterface{
          return dataSource?.updateTransactionRecord(oldRecord,updateMap)!!
      }
 
+
+
     override suspend fun loginUser(emailId: String, password: String): Pair<Boolean,String> {
         return dataSource?.loginUser(emailId,password)!!
     }
@@ -73,6 +75,10 @@ class Repository :RepositoryInterface{
         return dataSource?.signUpWithGoogle(account)!!
     }
 
+
+    override fun checkLoginStatus(navigateToHome: () -> Unit) {
+        dataSource?.checkLoginStatus(navigateToHome)
+    }
 
 
  }

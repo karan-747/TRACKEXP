@@ -546,6 +546,13 @@ class FireBaseDataSource {
     }
 
 
+    fun checkLoginStatus( navigateToHome : ()->Unit ){
+        firebaseAuth.currentUser?.let {
+            navigateToHome.invoke()
+        }
+    }
+
+
 
 
 

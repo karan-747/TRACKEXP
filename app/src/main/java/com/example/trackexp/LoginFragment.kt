@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import kotlin.math.log
 
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -34,8 +35,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val REQUEST_CODE_SIGN_IN = 0
     private lateinit var loginFragmentViewModel: LoginSignUpVM
-    private lateinit var firebaseAuth: FirebaseAuth
-    private  var firebaseUser: FirebaseUser? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,17 +48,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
 
 
-         firebaseAuth = FirebaseAuth.getInstance()
-        firebaseUser = firebaseAuth.currentUser
 
 
 
 
-//        if(firebaseUser !=null){
-//            if(controller.currentDestination?.id == R.id.loginFragment){
-//                Toast.makeText(requireContext(),"yes",Toast.LENGTH_SHORT).show()
-//            }
-//        }
+
+
+
+
+
 
         binding.btnLogin1.setOnClickListener {
             loginTheUser()
@@ -77,6 +75,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loginFragmentViewModel.checkLoginStatus {
+            binding.root.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+
+        }
     }
 
 

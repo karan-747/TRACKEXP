@@ -1,9 +1,11 @@
 package com.example.trackexp
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 class LoginSignUpVM:ViewModel() {
+    private val TAG = "LOGINSIGNUPVIEWMODEL"
 
         private var repositoryRef :Repository? = null
 
@@ -27,4 +29,11 @@ class LoginSignUpVM:ViewModel() {
         return repositoryRef?.signUpWithGoogle(account)!!
     }
     fun getUserLoggedInStatus():Boolean = repositoryRef?.getuserLoggedInStatus()!!
+
+
+     fun checkLoginStatus(navigateToHome: () -> Unit) {
+
+         Log.d(TAG,"MOVING TO HOME")
+        repositoryRef?.checkLoginStatus(navigateToHome)
+    }
 }
