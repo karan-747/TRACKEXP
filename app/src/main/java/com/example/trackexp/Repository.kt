@@ -57,6 +57,9 @@ class Repository :RepositoryInterface{
          return dataSource?.updateTransactionRecord(oldRecord,updateMap)!!
      }
 
+    override suspend fun deletePreviousMonthRecord() {
+        dataSource?.deletePreviousMonthRecord()
+    }
 
 
     override suspend fun loginUser(emailId: String, password: String): Pair<Boolean,String> {

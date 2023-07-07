@@ -39,5 +39,8 @@ class HomeFragmentViewModel():ViewModel() {
     private fun showLog(message:String){
         Log.d(TAG,message)
     }
+    suspend fun  deletePreviousMonthRecords(){
+        repositoryRef?.deletePreviousMonthRecord()
+    }
 
 }

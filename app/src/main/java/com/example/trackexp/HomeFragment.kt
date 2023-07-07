@@ -27,6 +27,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.DateFormat
@@ -145,6 +146,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     .error(R.drawable.img_user)
                     .into(binding.imageView6)
 
+            }
+        }
+
+        if(calender.get(Calendar.DAY_OF_MONTH) == 7){
+            CoroutineScope(Dispatchers.IO).async {
+                homeFragmentViewModel.deletePreviousMonthRecords()
             }
         }
     }

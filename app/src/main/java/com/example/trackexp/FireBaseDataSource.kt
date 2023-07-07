@@ -108,6 +108,29 @@ class FireBaseDataSource {
             getDatabaseRecords()
         }
 
+
+    }
+
+    suspend  fun deletePreviousMonthRecord() {
+        val recordQuery = recordRef
+            .whereEqualTo("year" ,currentYear)
+            .whereEqualTo("month" , currentMonth-1)
+            .get().await()
+
+        if (recordQuery.documents.isNotEmpty()){
+
+             try {
+                for(doc in recordQuery.documents){
+
+                    recordRef.document(doc.id).delete().await()
+                }
+
+            }
+            catch (_:Exception){
+
+            }
+        }
+
     }
 
     //getting a data from the data source -- firebase cloud storage
