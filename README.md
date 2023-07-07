@@ -25,9 +25,9 @@
 
 *![WhatsApp Image 2023-07-04 at 9 31 52 PM (1)](https://github.com/karan-747/TRACKEXP/assets/95201094/9f214027-4c90-451f-948a-07621e47e7cc)
 
-* ![WhatsApp Image 2023-07-04 at 9 31 53 PM](https://github.com/karan-747/TRACKEXP/assets/95201094/505c1ea4-0006-4415-be7e-0a48b9ff0b9f)
 
-* ![WhatsApp Image 2023-07-04 at 9 31 53 PM (1)](https://github.com/karan-747/TRACKEXP/assets/95201094/32ebe720-71b8-412f-b16b-8e2c91ee02ae)
+
+
 
 * ![WhatsApp Image 2023-07-04 at 9 31 53 PM (2)](https://github.com/karan-747/TRACKEXP/assets/95201094/5f8c0e36-831e-43c1-97c1-6f0a6d1155a3)
 
