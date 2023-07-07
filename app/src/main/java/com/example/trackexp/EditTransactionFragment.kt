@@ -3,6 +3,7 @@ package com.example.trackexp
 import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,7 @@ class EditTransactionFragment : Fragment(R.layout.fragment_edit_transaction) ,Da
 
 
     private lateinit var editTransactionVM: EditTransactionVM
-
+    private  val TAG = "EDITTRANSACTIONFRAGMENT"
 
     private lateinit var categoryTransactionAdapterExpense: CategoryTransactionAdapter
     private lateinit var categoryTransactionAdapterIncome: CategoryTransactionAdapter
@@ -97,37 +98,10 @@ class EditTransactionFragment : Fragment(R.layout.fragment_edit_transaction) ,Da
             //binding.spnCategoryOfTransaction.adapter = categoryTransactionAdapterExpense
 
 
-        binding.spnTypeOfTransaction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                newTransactionType = adapterView?.getItemAtPosition(position).toString()
-                if(newTransactionType == "Income"){
-                    binding.spnCategoryOfTransaction.adapter = categoryTransactionAdapterIncome
 
 
-                }else{
-                    binding.spnCategoryOfTransaction.adapter = categoryTransactionAdapterExpense
-
-                }
-            }
-
-            override fun onNothingSelected(adapterView: AdapterView<*>?) {
-            }
-
-        }
 
 
-        binding.spnCategoryOfTransaction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                newTransactionCategory = adapterView?.getItemAtPosition(position).toString()
-
-            }
-
-            override fun onNothingSelected(adapterView: AdapterView<*>?) {
-                //binding.spnCategoryOfTransaction.setSelection(catSelection)
-
-            }
-
-        }
 
         binding.spnModeOfTransaction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -142,6 +116,8 @@ class EditTransactionFragment : Fragment(R.layout.fragment_edit_transaction) ,Da
         val receivedArray=arguments?.getStringArray("RECORD")
         val jsonRecord= receivedArray?.get(1)
          isFromHome = receivedArray?.get(0) == "yes"
+
+
         jsonRecord?.let {
             val record = Gson().fromJson(jsonRecord,TransactionRecord::class.java)
             if(record!=null){
@@ -200,8 +176,6 @@ class EditTransactionFragment : Fragment(R.layout.fragment_edit_transaction) ,Da
 
 
         }
-
-
         return binding.root
 
 
@@ -265,22 +239,53 @@ class EditTransactionFragment : Fragment(R.layout.fragment_edit_transaction) ,Da
 
     override fun onResume() {
         super.onResume()
-        if(transactionType == "Income") {
+        var position =0
+        if(transactionType == "Income"){
+           transactionCategoryMapIncome[transactionCategory]?.let {
+               position = it
+               binding.spnCategoryOfTransaction.adapter = categoryTransactionAdapterIncome
+               binding.spnCategoryOfTransaction.setSelection(it)
+           }
+        }
+        else{
+            transactionCategoryMapExpense[transactionCategory]?.let {
+                position =it
+                binding.spnCategoryOfTransaction.adapter = categoryTransactionAdapterExpense
+                binding.spnCategoryOfTransaction.setSelection(it)
+            }
+        }
 
-                binding.spnCategoryOfTransaction.setSelection(4)
-                catSelection= catSelection
-                //Toast.makeText(requireContext(), "$catSelection $transactionCategory", Toast.LENGTH_SHORT)
-                  //  .show()
+        binding.spnCategoryOfTransaction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+                newTransactionCategory = adapterView?.getItemAtPosition(pos).toString()
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                binding.spnCategoryOfTransaction.setSelection(position)
+            }
 
         }
-        else {
 
-                binding.spnCategoryOfTransaction.setSelection(4)
+        binding.spnTypeOfTransaction.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                newTransactionType = adapterView?.getItemAtPosition(position).toString()
+                Toast.makeText(requireContext(), "NothingOnItemSelected11",Toast.LENGTH_SHORT).show()
+                if(newTransactionType == "Income"){
+                    binding.spnCategoryOfTransaction.adapter = categoryTransactionAdapterIncome
+                }else{
+                    binding.spnCategoryOfTransaction.adapter = categoryTransactionAdapterExpense
 
-//                Toast.makeText(requireContext(), "$catSelection $transactionCategory", Toast.LENGTH_SHORT)
-//                    .show()
+                }
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
+
+
+            }
 
         }
+
+
     }
 
 
@@ -308,32 +313,15 @@ class EditTransactionFragment : Fragment(R.layout.fragment_edit_transaction) ,Da
             binding.spnTypeOfTransaction.setSelection(it1,true)
 
         }
-
-        if(transactionType == "Income") {
-            transactionCategoryMapIncome[transactionCategory]?.let {
-                //binding.spnCategoryOfTransaction.setSelection(it)
-                catSelection= it
-//                Toast.makeText(requireContext(), "$it $transactionCategory", Toast.LENGTH_SHORT)
-//                    .show()
-            }
-        }
-        else {
-            transactionCategoryMapExpense[transactionCategory]?.let {
-                //binding.spnCategoryOfTransaction.setSelection(it)
-                catSelection = it
-//                Toast.makeText(requireContext(), "$it $transactionCategory", Toast.LENGTH_SHORT)
-//                    .show()
-            }
-        }
-
         transactionModeMap[transactionMode]?.let {
             binding.spnModeOfTransaction.setSelection(it,true)
         }
 
+
+
         newTransactionType = transactionType
         newTransactionMode = transactionMode
         newTransactionCategory = transactionCategory
-
         newTransactionDay = transactionDay
         newTransactionMonth = transactionMonth
         newTransactionYear = transactionYear
