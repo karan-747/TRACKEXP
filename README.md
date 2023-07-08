@@ -18,6 +18,7 @@
 * Firebase Cloud Firestore
 * MVVM
 * Navigation Component
+* Data Binding
 
 ## App-Images
 
